@@ -1,5 +1,7 @@
 <?php
 
+use GuzzleHttp\Client;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,3 +16,17 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('set-webhook', function () {
+    $url = 'https://api.telegram.org/bot'.env('TELEGRAM_BOT_TOKEN').'/setWebhook?url='.env('TELEGRAM_BOT_WEBHOOK');
+    $client = new Client();
+    $response = $client->get($url);
+    return redirect()->route('webhook.info');
+})->name('webhook.set');
+
+Route::get('info-webhook', function () {
+    $url = 'https://api.telegram.org/bot'.env('TELEGRAM_BOT_TOKEN').'/getWebhookInfo';
+    $client = new Client();
+    $response = $client->get($url);
+    echo $response->getBody();
+})->name('webhook.info');
