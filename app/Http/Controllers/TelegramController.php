@@ -7,9 +7,24 @@ use Telegram\Bot\Api;
 class TelegramController extends Controller
 {
     /**
-     * @var Api
+     * @var \Telegram\Bot\Api
      */
     protected $telegram;
+
+    /**
+     * @var \Telegram\Bot\Objects\Update
+     */
+    protected $update;
+
+    /**
+     * @var \Telegram\Bot\Objects\Message
+     */
+    protected $message;
+
+    /**
+     * @var \Telegram\Bot\Objects\Chat
+     */
+    protected $chat;
 
     /**
      * TelegramController constructor.
@@ -19,13 +34,27 @@ class TelegramController extends Controller
     public function __construct(Api $telegram)
     {
         $this->telegram = $telegram;
+
+        if (!is_null($this->telegram)) {
+            $this->update = $this->telegram->getWebhookUpdates();
+
+            if (!is_null($this->update)) {
+                $this->message = $this->update->getMessage();
+
+                if (!is_null($this->message)) {
+                    $this->chat = $this->message->getChat();
+                }
+            }
+        }
     }
 
     /**
-     * Getting updates
+     * Treating updates
      */
     public function webhook()
     {
-        // DO NOTHING (YET)
+        if (!is_null($this->chat)) {
+            // register info about chat
+        }
     }
 }
