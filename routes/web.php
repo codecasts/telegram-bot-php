@@ -30,3 +30,5 @@ Route::get('info-webhook', function () {
     $response = $client->get($url);
     echo $response->getBody();
 })->name('webhook.info');
+
+Route::post('webhook', 'TelegramController@webhook');
