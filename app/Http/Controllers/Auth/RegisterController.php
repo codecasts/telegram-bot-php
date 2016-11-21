@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace CodecastsRobot\Http\Controllers\Auth;
 
-use App\User;
+use CodecastsRobot\User;
 use Validator;
-use App\Http\Controllers\Controller;
+use CodecastsRobot\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
